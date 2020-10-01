@@ -47,14 +47,15 @@
             for (var i = 0; i < entries.length; i++) {
               var entry = entries[i];
               let divElement = '<div class="rss_title"><a href="' + entry.link + '" target="_blank">' + entry.title + '</a></div><div class="rss_description">' + entry.description + '</div>';
-              document.getElementById("rss_items").innerHTML =+ divElement;
+              document.getElementById("rss_items").innerHTML += divElement;
             }
 }
-}
+});
 }
   </script>
       <title>About Me</title>
       <link rel="stylesheet" href="site.css">
+      <script src="https://storage.googleapis.com/feednami-static/js/feednami-client-v1.0.1.js"></script>
 </head>
   <body>
     <div id="rss_items"></div>
