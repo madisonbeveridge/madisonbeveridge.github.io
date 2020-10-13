@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="crossorigin=""></script>
+
     <script>
     window.onload = function() {
       displayGreeting();
       fetchWeather();
       displayRSSFeed();
-      listSheet();
+      var mymap = drawMap();
+      listSheet(mymap);
+
     }
+
+    function drawMap() {
+      var mymap = L.map('mapid').setView([32.231753, -110.953542], 15);
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: 'mapbox/streets-v11',
+          tileSize: 512,
+          zoomOffset: -1,
+          accessToken: 'pk.eyJ1IjoibWFkaXNvbmJldmVyaWRnZSIsImEiOiJja2c3NDQ1bHMwMmptMnlwY3k5Nm5mNzZsIn0.N9KgTonCna8Me6YdS4GMdg'
+    }).addTo(mymap);
+    var marker = L.marker([32.231753, -110.953542]).addTo(mymap);
+    marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+    return mymap;
+    }
+
+    function addPin(mymap, lat, lon, name) {
+      L.marker([lat, lon]).addTo(mymap).blindPopup(name);
+    }
+
     function displayGreeting() {
       var date = new Date();
       var hour = date.getHours();
@@ -69,6 +96,9 @@ function listSheet() {
             var result = data.results[i];
             let divElement = '<div class="cell">' + '<div class="cell_name">' + result.name + '</div>' + '<div class="cell_address">' + result.address + '</div>' + '<div class="cell_url"><a href="' + result.url + '">' + result.url + '</a></div>' + '<div class="cell_phone">' + result.phone + '</div>' + '</div>';
             document.getElementById("sheet").innerHTML += divElement;
+
+            addPin(mymap, result.lat, result.lon, '<strong>' + result.name + '</strong><br>' + result.adress);
+
           }
         })
         .catch(function() {
@@ -82,10 +112,11 @@ function listSheet() {
       <script src="https://storage.googleapis.com/feednami-static/js/feednami-client-v1.0.1.js"></script>
 </head>
   <body>
-    <div id="rss_items"></div>
-    <div id="greeting"></div>
+   <div id="rss_items"></div>
+   <div id="greeting"></div>
    <div id="weather"></div>
    <h2>COVID-19 Testing Locations</h2>
+   <div id="mapid"></div>
    <div id="sheet"></div>
 <center>
     <div class="name_container">

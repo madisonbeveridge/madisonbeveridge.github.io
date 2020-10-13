@@ -62,7 +62,6 @@ img {
 }
 .cell_name{
   front-weight: bold;
-  border: 5px solid pink;
   padding: 5px 5px 5px 5px;
   margin: 5px 5px 5px 5px;
 }
@@ -74,7 +73,6 @@ img {
 }
 
 .cell_phone{
-  border: 5px solid pink;
   padding: 5px 5px 5px 5px;
   margin: 5px 5px 5px 5px;
 }
@@ -95,9 +93,13 @@ img {
 }
 
 #sheet {
-
 }
 
 #cell{
-
 }
+
+#mapid {
+  border: 5px solid: pink;
+  height: 640px;
+  width: 640px;
+ }
