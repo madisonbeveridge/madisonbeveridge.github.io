@@ -32,7 +32,7 @@
     }
 
     function addPin(mymap, lat, lon, name) {
-      L.marker([lat, lon]).addTo(mymap).blindPopup(name);
+      L.marker([lat, lon]).addTo(mymap).bindPopup(name);
     }
 
     function displayGreeting() {
