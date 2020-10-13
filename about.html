@@ -80,7 +80,8 @@
 }
 });
 }
-function listSheet() {
+
+function listSheet(mymap) {
         // list google sheet rows
         fetch('https://api.sheetson.com/v2/sheets/Sheet1?no-cache=true', {
           withCredentials: true,
@@ -96,7 +97,8 @@ function listSheet() {
             var result = data.results[i];
             let divElement = '<div class="cell">' + '<div class="cell_name">' + result.name + '</div>' + '<div class="cell_address">' + result.address + '</div>' + '<div class="cell_url"><a href="' + result.url + '">' + result.url + '</a></div>' + '<div class="cell_phone">' + result.phone + '</div>' + '</div>';
             document.getElementById("sheet").innerHTML += divElement;
-
+console.log("lat" + result.lat);
+console.log("lon" + result.lon);
             addPin(mymap, result.lat, result.lon, '<strong>' + result.name + '</strong><br>' + result.adress);
 
           }
